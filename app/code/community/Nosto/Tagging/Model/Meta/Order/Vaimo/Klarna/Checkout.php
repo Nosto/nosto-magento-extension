@@ -25,8 +25,8 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Nosto_Tagging_Model_Meta_Cart_Builder as CartBuilder;
 use Nosto_Tagging_Helper_Log as NostoLog;
+use Nosto_Tagging_Model_Meta_Cart_Builder as CartBuilder;
 
 /**
  * Meta data class which holds information about an order.
@@ -78,13 +78,13 @@ class Nosto_Tagging_Model_Meta_Order_Vaimo_Klarna_Checkout extends Nosto_Tagging
         /** @noinspection PhpUndefinedMethodInspection */
         $checkoutId = $quote->getKlarnaCheckoutId();
         $this->setOrderNumber($checkoutId);
-        $createdAt = \DateTime::createFromFormat(
+        $createdAt = DateTime::createFromFormat(
             'Y-m-d H:i:s', $quote->getCreatedAt()
         );
-        if ($createdAt instanceof \DateTime) {
+        if ($createdAt instanceof DateTime) {
             $this->setCreatedAt($createdAt);
         } else {
-            $this->setCreatedAt(new \DateTime('now'));
+            $this->setCreatedAt(new DateTime('now'));
         }
 
         $orderStatus = new Nosto_Object_Order_OrderStatus();
@@ -112,7 +112,7 @@ class Nosto_Tagging_Model_Meta_Order_Vaimo_Klarna_Checkout extends Nosto_Tagging
         $vaimoKlarnaOrder = $klarna->getKlarnaOrderRaw($quote->getKlarnaCheckoutId());
         try {
             self::validateKlarnaOrder($vaimoKlarnaOrder);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             NostoLog::exception($e);
             return false;
         }
@@ -134,7 +134,7 @@ class Nosto_Tagging_Model_Meta_Order_Vaimo_Klarna_Checkout extends Nosto_Tagging
         $this->setCustomer($orderBuyer);
         try {
             $this->buildItemsFromQuote($quote);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             NostoLog::error(
                 'Could not find klarnaCheckoutId from quote #%d. Error: %s',
                 array($quote->getId(), $e->getMessage())
@@ -219,9 +219,8 @@ class Nosto_Tagging_Model_Meta_Order_Vaimo_Klarna_Checkout extends Nosto_Tagging
             /* @var $quote Mage_Sales_Model_Quote */
             $quote = $klarnaHelper->findQuote($klarnaCheckoutId);
             if ($quote instanceof Mage_Sales_Model_Quote) {
-                /* @var $order Mage_Sales_Model_Order */
+                /** @var Mage_Sales_Model_Order $salesOrderModel */
                 $salesOrderModel = Mage::getModel('sales/order');
-                /** @noinspection PhpUndefinedMethodInspection */
                 $order = $salesOrderModel->loadByAttribute(
                     'quote_id',
                     $quote->getId()
@@ -242,7 +241,6 @@ class Nosto_Tagging_Model_Meta_Order_Vaimo_Klarna_Checkout extends Nosto_Tagging
      *
      * @param Mage_Sales_Model_Order $order
      * @return bool
-     * @throws Nosto_NostoException
      */
     public function loadData(Mage_Sales_Model_Order $order)
     {

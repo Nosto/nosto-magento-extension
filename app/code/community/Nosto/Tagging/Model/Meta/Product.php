@@ -76,8 +76,8 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
      * @param Mage_Catalog_Model_Product $product the product model.
      * @param Mage_Core_Model_Store|null $store the store to get the product data for.
      * @return bool
-     * @throws Nosto_NostoException
      * @throws Mage_Core_Exception
+     * @throws Nosto_NostoException
      */
     public function loadData(Mage_Catalog_Model_Product $product, Mage_Core_Model_Store $store = null)
     {
@@ -203,7 +203,6 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
             foreach ($associatedProducts as $associatedProduct) {
                 /** @var Mage_Catalog_Model_Product $productModel */
                 $productModel = Mage::getModel('catalog/product');
-                /* @var Mage_Catalog_Model_Product $mageSku */
                 $mageSku = $productModel->load($associatedProduct->getId());
                 try {
                     /* @var Nosto_Tagging_Model_Meta_Sku $skuModel */
@@ -280,7 +279,7 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
         $stockHelper = Mage::helper('nosto_tagging/stock');
         try {
             $this->setInventoryLevel($stockHelper->getQty($product));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Nosto_Tagging_Helper_Log::error(
                 'Failed to resolve inventory level for product %d to tags. Error message was: %s',
                 array(
@@ -395,7 +394,7 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
                             $this->addTag3(sprintf('%s:%s', $key, $attributeValue));
                             break;
                     }
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     Nosto_Tagging_Helper_Log::exception($e);
                 }
             }
@@ -459,8 +458,6 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
         } else {
             trigger_error('Call to undefined method ' . __CLASS__ . '::' . $method . '()', E_USER_ERROR); // @codingStandardsIgnoreLine
         }
-
-        return null;
     }
 
     /**
@@ -482,7 +479,7 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
         if (method_exists($this, $setter)) {
             try {
                 $this->$setter($value);
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Nosto_Tagging_Helper_Log::exception($e);
             }
         }
@@ -508,7 +505,7 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
         if (method_exists($this, $getter)) {
             try {
                 $value = $this->$getter();
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Nosto_Tagging_Helper_Log::exception($e);
             }
         }
@@ -533,7 +530,6 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
     ) {
         $attribute = $product->getResource()->getAttribute($attributeName);
         if ($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
-            /** @noinspection PhpParamsInspection */
             if ($storeId && method_exists($product, 'setStoreId')) {
                 $product->setStoreId($storeId);
             }
@@ -545,7 +541,7 @@ class Nosto_Tagging_Model_Meta_Product extends Nosto_Object_Product_Product
                     ->setStoreId($storeId)
                     ->getSource()
                     ->getOptionText($product->getData($attributeName));
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Nosto_Tagging_Helper_Log::exception($e);
             }
 

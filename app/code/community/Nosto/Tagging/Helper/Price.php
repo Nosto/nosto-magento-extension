@@ -1,9 +1,9 @@
 <?php
 /**
  * Magento
- *  
+ *
  * NOTICE OF LICENSE
- *  
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
@@ -11,13 +11,13 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
- *  
+ *
  * DISCLAIMER
- *  
+ *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
- *  
+ *
  * @category  Nosto
  * @package   Nosto_Tagging
  * @author    Nosto Solutions Ltd <magento@nosto.com>
@@ -95,8 +95,7 @@ class Nosto_Tagging_Helper_Price extends Mage_Core_Helper_Abstract
         Mage_Catalog_Model_Product $product,
         $finalPrice = false,
         $inclTax = true
-    ) 
-    {
+    ) {
         $price = 0;
 
         switch ($product->getTypeId()) {
@@ -158,7 +157,7 @@ class Nosto_Tagging_Helper_Price extends Mage_Core_Helper_Abstract
                             if (!$lowestPrice || $variationPrice < $lowestPrice) {
                                 $lowestPrice = $variationPrice;
                             }
-                        // If no SKU is available, we use the lowest price of them all
+                            // If no SKU is available, we use the lowest price of them all
                         } elseif ($productModel instanceof Mage_Catalog_Model_Product && $lowestPrice === false) {
                             $variationPrice = $this->_getProductPrice($productModel, $finalPrice, $inclTax);
                             if (!$lowestUnavailablePrice || $variationPrice < $lowestUnavailablePrice) {
@@ -218,7 +217,6 @@ class Nosto_Tagging_Helper_Price extends Mage_Core_Helper_Abstract
         $typeInstance = $product->getTypeInstance();
         $typeInstance->setStoreFilter($product->getStoreId(), $product);
 
-        /** @var Mage_Bundle_Model_Resource_Option_Collection $optionCollection */
         $optionCollection = $typeInstance->getOptionsCollection($product);
 
         $selectionCollection = $typeInstance->getSelectionsCollection(
@@ -304,7 +302,7 @@ class Nosto_Tagging_Helper_Price extends Mage_Core_Helper_Abstract
         Mage_Catalog_Model_Product $product,
         $finalPrice = false,
         $inclTax = true
-    ) { 
+    ) {
         /** @var Mage_Tax_Helper_Data $helper */
         $helper = Mage::helper('tax');
         if ($finalPrice) {

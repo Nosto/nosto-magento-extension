@@ -26,16 +26,18 @@
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Nosto_Request_Api_Token as Token;
 use Nosto_Object_Signup_Account as NostoSignupAccount;
+use Nosto_Request_Api_Token as Token;
 
 if (is_file(__DIR__ . '/../../../../../../shell/abstract.php')) { //@codingStandardsIgnoreLine
+    /** @noinspection PhpIncludeInspection */
     require_once __DIR__ . '/../../../../../../shell/abstract.php'; //@codingStandardsIgnoreLine
 } elseif (is_file(__DIR__ . '/../../../../../../../../shell/abstract.php')) { //@codingStandardsIgnoreLine
+    /** @noinspection PhpIncludeInspection */
     require_once __DIR__ . '/../../../../../../../../shell/abstract.php'; //@codingStandardsIgnoreLine
 } else {
-  echo 'abstract.php not found'; //@codingStandardsIgnoreLine
-  exit(1); //@codingStandardsIgnoreLine
+    echo 'abstract.php not found'; //@codingStandardsIgnoreLine
+    exit(1); //@codingStandardsIgnoreLine
 }
 
 /**
@@ -75,6 +77,10 @@ class ReconnectCommand extends Mage_Shell_Abstract
         );
     }
 
+    /**
+     * @return int
+     * @throws Nosto_NostoException
+     */
     public function run()
     {
         $this->checkArgs();
@@ -113,13 +119,14 @@ class ReconnectCommand extends Mage_Shell_Abstract
      *
      * @param array $tokens
      * @param $accountId
+     * @param $scopeCode
      * @return bool
      */
     protected function updateNostoTokens(array $tokens, $accountId, $scopeCode)
     {
         $store = $this->getStoreByStoreViewCode($scopeCode);
         if (!$store) {
-            echo ('Store not found. Check your input.'); //@codingStandardsIgnoreLine
+            echo('Store not found. Check your input.'); //@codingStandardsIgnoreLine
             exit(1); //@codingStandardsIgnoreLine
         }
 
@@ -187,7 +194,7 @@ class ReconnectCommand extends Mage_Shell_Abstract
      */
     protected function getStoreByStoreViewCode($code)
     {
-        /** @var \Nosto_Tagging_Helper_Data $nostoDataHelper */
+        /** @var Nosto_Tagging_Helper_Data $nostoDataHelper */
         $nostoDataHelper = Mage::helper('nosto_tagging');
         $stores = $nostoDataHelper->getAllStoreViews();
         foreach ($stores as $store) {
@@ -224,4 +231,5 @@ USAGE;
 
 // Run the command
 $shell = new ReconnectCommand();
+/** @noinspection PhpUnhandledExceptionInspection */
 $shell->run();

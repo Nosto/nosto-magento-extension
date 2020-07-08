@@ -1,9 +1,9 @@
 <?php
 /**
  * Magento
- *  
+ *
  * NOTICE OF LICENSE
- *  
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
@@ -11,13 +11,13 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
- *  
+ *
  * DISCLAIMER
- *  
+ *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
- *  
+ *
  * @category  Nosto
  * @package   Nosto_Tagging
  * @author    Nosto Solutions Ltd <magento@nosto.com>
@@ -421,8 +421,7 @@ class Nosto_Tagging_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function cleanUpAccountTitle($name)
     {
-        $clean = str_replace(self::$removeFromTitle, '', $name);
-        return $clean;
+        return str_replace(self::$removeFromTitle, '', $name);
     }
 
     /**
@@ -604,11 +603,10 @@ class Nosto_Tagging_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns is the sending add to cart event to nosto enabled
      * This feature has been removed so it will return false
      *
-     * @param Mage_Core_Model_Store $store
      * @return bool
      * @deprecated
      */
-    public function getSendAddToCartEvent($store)
+    public function getSendAddToCartEvent()
     {
         return false;
     }
@@ -617,9 +615,9 @@ class Nosto_Tagging_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns exchange rate cron frequency
      *
      * For possible return values
+     * @return string
      * @see Nosto_Tagging_Model_System_Config_Source_Cron_Frequency
      *
-     * @return string
      */
     public function getExchangeRateCronFrequency()
     {
@@ -632,8 +630,8 @@ class Nosto_Tagging_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string $tagId the name / identifier of the tag (e.g. tag1, tag2).
      * @param mixed $store the store model or null.
      *
-     * @throws Nosto_NostoException
      * @return array
+     * @throws Nosto_NostoException
      */
     public function getAttributesToTag($tagId, $store = null)
     {
@@ -704,7 +702,6 @@ class Nosto_Tagging_Helper_Data extends Mage_Core_Helper_Abstract
         foreach (Mage::app()->getWebsites() as $website) {
             /** @var Mage_Core_Model_Store_Group $group */
             foreach ($website->getGroups() as $group) {
-                /** @noinspection PhpUndefinedMethodInspection */
                 $stores = $group->getStores();
                 foreach ($stores as $store) {
                     $response[] = $store;
@@ -725,7 +722,6 @@ class Nosto_Tagging_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $stores = $this->getAllStoreViews();
         $values = array();
-        /* @var Mage_Core_Model_Store $store */
         foreach ($stores as $store) {
             /** @noinspection PhpUndefinedMethodInspection */
             $storeId = $store->getStoreId();

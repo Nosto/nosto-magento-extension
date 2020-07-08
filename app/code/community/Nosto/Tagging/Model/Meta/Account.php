@@ -1,9 +1,9 @@
 <?php
 /**
  * Magento
- *  
+ *
  * NOTICE OF LICENSE
- *  
+ *
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
@@ -11,13 +11,13 @@
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
  * to license@magentocommerce.com so we can send you a copy immediately.
- *  
+ *
  * DISCLAIMER
- *  
+ *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
- *  
+ *
  * @category  Nosto
  * @package   Nosto_Tagging
  * @author    Nosto Solutions Ltd <magento@nosto.com>
@@ -37,7 +37,7 @@ use Nosto_Tagging_Helper_Log as NostoLog;
  */
 class Nosto_Tagging_Model_Meta_Account extends Nosto_Object_Signup_Signup
 {
-    CONST /** @noinspection SpellCheckingInspection */
+    const
         SIGNUP_TOKEN = 'YBDKYwSqTCzSsU8Bwbg4im2pkHMcgTy9cCX7vevjJwON1UISJIwXOLMM0a8nZY7h';
     const PLATFORM_NAME = 'magento';
 
@@ -76,7 +76,7 @@ class Nosto_Tagging_Model_Meta_Account extends Nosto_Object_Signup_Signup
                 . $store->getName()
             )
         );
-        $this->setName(substr(sha1((string) rand()), 0, 8));
+        $this->setName(substr(sha1((string)rand()), 0, 8));
         $this->setFrontPageUrl($helperUrl->getFrontPageUrl($store));
         $this->setCurrencyCode($store->getBaseCurrencyCode());
         $this->setLanguageCode(substr($store->getConfig('general/locale/code'), 0, 2));
@@ -92,7 +92,7 @@ class Nosto_Tagging_Model_Meta_Account extends Nosto_Object_Signup_Signup
         if (!$helper->multiCurrencyDisabled($store)) {
             $this->setDefaultVariantId($store->getBaseCurrencyCode());
         } elseif ($helper->isVariationEnabled($store)) {
-            /* @var Nosto_Tagging_Helper_Variation $variationHelper  */
+            /* @var Nosto_Tagging_Helper_Variation $variationHelper */
             $variationHelper = Mage::helper('nosto_tagging/variation');
             $this->setDefaultVariantId($variationHelper->getDefaultVariationId());
         } else {
@@ -109,7 +109,7 @@ class Nosto_Tagging_Model_Meta_Account extends Nosto_Object_Signup_Signup
                     $this->addCurrency(
                         $currencyCode, $currencyHelper->getCurrencyObject($storeLocale, $currencyCode)
                     );
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     NostoLog::exception($e);
                     return false;
                 }

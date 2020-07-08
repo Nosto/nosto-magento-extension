@@ -53,7 +53,8 @@ class Nosto_Tagging_Model_Meta_Rating_Yotpo_Yotpo extends Nosto_Tagging_Model_Me
     /**
      * @inheritdoc
      */
-    public function init(Mage_Catalog_Model_Product $product, Mage_Core_Model_Store $store) { // @codingStandardsIgnoreLine
+    public function init(Mage_Catalog_Model_Product $product, Mage_Core_Model_Store $store)
+    { // @codingStandardsIgnoreLine
         try {
             $this->setRegistryProduct($product);
             /* @var Yotpo_Yotpo_Helper_RichSnippets $yotpoHelper */
@@ -68,7 +69,7 @@ class Nosto_Tagging_Model_Meta_Rating_Yotpo_Yotpo extends Nosto_Tagging_Model_Me
                     $this->setReviewCount($values['reviews_count']);
                 }
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             NostoLog::error(
                 'Could not find Yotpo helper. Error was: %s',
                 array($e->getMessage())

@@ -82,9 +82,9 @@ class Nosto_Tagging_Model_Observer_Setting
                 }
 
                 if ($helper->isMultiCurrencyMethodExchangeRate($store) && !$accountHelper->updateCurrencyExchangeRates(
-                    $account,
-                    $store
-                )) {
+                        $account,
+                        $store
+                    )) {
                     NostoLog::error(
                         'Failed sync currency rates #%s for store #%s in class %s',
                         array(
